@@ -1,0 +1,5 @@
+carlos|12345678|carlos1@email.com|carlos2@email.com
+sara|12345678|sara1@email.com|sara2@email.com
+juan|12345678|juan1@email.com|juan2@email.com
+luis|12345678|luis1@email.com|luis2@email.com
+ben|12345678|ben1@email.com|ben2@email.com
