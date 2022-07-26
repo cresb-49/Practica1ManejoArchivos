@@ -1,12 +1,9 @@
 package com.mycompany.practica1manejoarchivos;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -164,7 +161,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(this.PATH.isBlank()||this.PATH.isEmpty()){
-            
+            JOptionPane.showMessageDialog(this,"No esta cargada la agenda en el programa", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String nombre,tel,red1,red2;
             nombre = txtNombre.getText();
@@ -175,27 +172,34 @@ public class FramePrincipal extends javax.swing.JFrame {
             WriterText writerText = new WriterText();
             try {
                 writerText.write(PATH, contacto);
+                JOptionPane.showMessageDialog(this,"Se guardo con exito el contacto", "Exito", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this,ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            JFileChooser jflChooser = new JFileChooser("/");
+            JFileChooser jflChooser = new JFileChooser(new File(System.getProperty("user.home")));
+            jflChooser.addChoosableFileFilter(new FileNameExtensionFilter("TXT Files", "txt"));
             jflChooser.showDialog(this, "Selecionar");
             this.CURRENT_FILE = jflChooser.getSelectedFile();
             this.PATH = this.CURRENT_FILE.getPath();
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        VerRegistros registros = new VerRegistros(this,true,this.PATH);
-        registros.setVisible(true);
+        if(this.PATH.isBlank()||this.PATH.isEmpty()){
+            JOptionPane.showMessageDialog(this,"No esta cargada la agenda en el programa", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            VerRegistros registros = new VerRegistros(this,true,this.PATH);
+            registros.setLocationRelativeTo(this);
+            registros.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

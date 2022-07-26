@@ -1,7 +1,9 @@
 package com.mycompany.practica1manejoarchivos;
 
+import java.util.Objects;
+
 public class Contacto {
-    
+
     public String nombre;
     public String numero;
     public String red1;
@@ -15,9 +17,22 @@ public class Contacto {
     }
 
     @Override
-    public String toString() {
-        return nombre+"|"+numero+"|"+red1+"|"+red2;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contacto other = (Contacto) obj;
+        return Objects.equals(this.nombre, other.nombre);
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombre + "|" + numero + "|" + red1 + "|" + red2;
+    }
 }
