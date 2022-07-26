@@ -5,8 +5,11 @@
 package com.mycompany.practica1manejoarchivos;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -95,12 +98,31 @@ public class VerRegistros extends javax.swing.JDialog {
             ReaderText reader = new ReaderText();
             try{
                 var result = reader.getContacts(PATH);
-                for (Contacto contacto : result) {
-                    System.out.println(contacto.toString());
-                }
+                this.rellenarTabla(result);
             } catch (FileNotFoundException ex) {
                 System.out.println(ex.getMessage());
             }
+        }
+    }
+
+    private void  rellenarTabla(ArrayList<Contacto> contactos){
+        DefaultTableModel defaultTableModel = (DefaultTableModel)this.jTable1.getModel();
+        Object[] row = null;
+        for (var object : contactos) {
+            row = new Object[4];
+            row[0] = object.nombre;
+            row[1] = object.numero;
+            row[2] = object.red1;
+            row[3] = object.red2;
+            defaultTableModel.addRow(row);
+        }
+    }
+
+    private void limpiarTabla(){
+        DefaultTableModel defaultTableModel = (DefaultTableModel)this.jTable1.getModel();
+        int val = defaultTableModel.getRowCount();
+        for (int i = 0; i < val; i++) {
+            defaultTableModel.removeRow(0);
         }
     }
 }
